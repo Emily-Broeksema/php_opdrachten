@@ -10,7 +10,9 @@ try {
 
     echo "<table>";
     foreach ($result as $data) {
-        echo "<a href='opdracht92.php?id=" . $data['id'] . "'>";
+
+        echo "<a href=opdracht92.php" . "'>";
+
         echo $data['merk'] . " " . $data['type'];
         echo "</a>";
         echo "<br>";
