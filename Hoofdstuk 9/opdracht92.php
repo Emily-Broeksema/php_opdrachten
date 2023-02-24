@@ -1,3 +1,5 @@
+<a href="opdracht91.php">Terug naar de homepage</a>
+
 <?php
 try {
     $db = new PDO("mysql:host=localhost;dbname=fietsenmaker", "root", "");
@@ -17,6 +19,3 @@ try {
     die("Error!: " . $e->message());
 }
 ?>
-
-<a href="opdracht91.php">Terug naar de homepage</a>
-</html>
