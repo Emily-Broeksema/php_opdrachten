@@ -30,7 +30,6 @@ $idToUpdate = 123;
 // Execute the update statement
 $stmt->execute([$newColumn1Value, $newColumn2Value, $idToUpdate]);
 
-
 }
 
 ?>

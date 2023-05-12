@@ -122,6 +122,14 @@ function PrintTable($result){
 
 function CrudBieren(){
 
+    //Menu-item insert
+    $txt = "
+    <h1>Crud BIER</h1>
+    <nav>
+    <a href='insert_bier.php'>Toevoegen nieuw biertje</a>
+    </nav>";
+    echo $txt;
+
     // Haal alle bier record uit de tabel 
     $result = GetData("bier");
     
@@ -141,6 +149,7 @@ function PrintCrudBier($result){
     foreach($headers as $header){
         $table .= "<th bgcolor=gray>" . $header . "</th>";   
     }
+    $table .= "</tr>";
 
     // print elke rij
     foreach ($result as $row) {
@@ -150,7 +159,7 @@ function PrintCrudBier($result){
         foreach ($row as $cell) {
             $table .= "<td>" . $cell . "</td>";
         }
-        $table .= "</tr>";
+        // $table .= "</tr>";
         
         // Wijzig knopje
         $table .= "<td>". 
@@ -168,15 +177,84 @@ function PrintCrudBier($result){
     echo $table;
 }
 
-
 function UpdateBier($row){
     echo "Update row<br>";
-    var_dump($row);
+    // var_dump($row);
+
+try{
+    // Connectie maken Database
+    $conn = ConnectDb();
+    
+
+    $sql = "UPDATE bier
+    SET
+        naam = '$row[naam]',
+        soort = '$row[soort]',
+        stijl = '$row[stijl]',
+        alcohol = '$row[alcohol]',
+        brouwcode = '$row[brouwcode]'
+        WHERE biercode = $row[biercode]";
+
+        // echo $sql;
+        // exit;
+
+        $query = $conn->prepare($sql);
+        $query->execute();
+
 }
+
+catch(PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+}
+
+
+}
+
+
 
 function DeleteBier($biercode){
     echo "Delete row<br>";
-    var_dump($biercode);
+    // var_dump($biercode);
+
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        // set the PDO error mode to exception
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      
+        // sql to delete a record
+        $sql = "DELETE FROM bieren WHERE biercode = $biercode;";
+      echo $sql;
+      exit;
+      
+        // use exec() because no results are returned
+        $conn->exec($sql);
+        echo "Record deleted successfully";
+      } catch(PDOException $e) {
+        echo $sql . "<br>" . $e->getMessage();
+      }
+      
+      $conn = null;
+}
+
+
+function dropDown($label, $data, $row_selected){
+    $txt = "
+    <label for='$label'>Choose a $label:</label>
+        <select name='$label' id='$label'>";
+
+    foreach($data as $row){
+        if ($row['brouwcode'] == $row_selected){
+            $txt .= "<option value='$row[brouwcode]' selected='selected'>$row";
+        } else {
+            $txt .= "<option value='$row[brouwcode]'>$row[naam]</option>\n";
+        }
+        
+    }
+
+      
+    $txt .= "</select>";
+    
+    echo $txt;
 }
 
 ?>

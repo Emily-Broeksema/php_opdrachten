@@ -16,7 +16,7 @@
 
        
 
-        echo "<h1>Update Bier</h1>";
+        echo "<h1>Insert Bier</h1>";
 
         echo "Data uit het vorige formulier:<br>";
 
@@ -46,7 +46,7 @@
         <!---Brouwcode:<input type="" name="brouwcode" value="<?php echo $row['brouwcode'];?>"><br> --->
 
         <br></br>
-        <input type="submit" name="btn_wzg" value="Wijzigen"><br>
+        <input type="submit" name="insert" value="insert"><br>
         </form>
     </body>
 </html>
@@ -54,4 +54,3 @@
 <?php
     }
 ?>
-
