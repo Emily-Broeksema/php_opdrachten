@@ -39,7 +39,7 @@
     return $result;
  }
 
- function GetBier($biercode){
+ function GetBrouwer($brouwcode){
     // Connect database
     $conn = ConnectDb();
 
@@ -48,7 +48,7 @@
     // $result = $conn->query("SELECT * FROM $table")->fetchAll();
 
     // Select data uit de opgegeven table methode prepare
-    $query = $conn->prepare("SELECT * FROM bier WHERE biercode = $biercode");
+    $query = $conn->prepare("SELECT * FROM brouwer WHERE brouwcode = $brouwcode");
     $query->execute();
     $result = $query->fetch();
 
@@ -56,10 +56,10 @@
  }
 
 
- function OvzBieren(){
+ function OvzBrouwer(){
 
     // Haal alle bier record uit de tabel 
-    $result = GetData("bier");
+    $result = GetData("brouwer");
     
     //print table
     PrintTable($result);
@@ -67,6 +67,7 @@
     
  }
 
+ ///////////////////////////////////////////////////////////////////
  function OvzBrouwers(){
     // Haal alle bier record uit de tabel 
     $result = GetData("brouwer");
@@ -120,24 +121,24 @@ function PrintTable($result){
 }
 
 
-function CrudBieren(){
+function CrudBrouwer(){
 
     //Menu-item insert
     $txt = "
-    <h1>Crud BIER</h1>
+    <h1>Crud BROUWER</h1>
     <nav>
     <a href='insert_bier.php'>Toevoegen nieuw biertje</a>
     </nav>";
     echo $txt;
 
     // Haal alle bier record uit de tabel 
-    $result = GetData("bier");
+    $result = GetData("brouwer");
     
     //print table
-    PrintCrudBier($result);
+    PrintCrudBrouwer($result);
     
  }
-function PrintCrudBier($result){
+function PrintCrudBrouwer($result){
     // Zet de hele table in een variable en print hem 1 keer 
     $table = "<table border = 1px>";
 
@@ -163,12 +164,12 @@ function PrintCrudBier($result){
         
         // Wijzig knopje
         $table .= "<td>". 
-            "<form method='post' action='update_bier.php?biercode=$row[biercode]' >       
+            "<form method='post' action='update_brouwer.php?brouwcode=$row[brouwcode]' >       
                     <button name='wzg'>Wzg</button>	 
             </form>" . "</td>";
 
         // Delete via linkje href
-        $table .= '<td><a href="delete_bier.php?biercode='.$row["biercode"].'">verwijder</a></td>';
+        $table .= '<td><a href="delete_brouw.php?biercode='.$row["brouwcode"].'">verwijder</a></td>';
         
         $table .= "</tr>";
     }
@@ -177,7 +178,7 @@ function PrintCrudBier($result){
     echo $table;
 }
 
-function UpdateBier($row){
+function UpdateBrouwer($row){
     echo "Update row<br>";
     // var_dump($row);
 
@@ -186,14 +187,11 @@ try{
     $conn = ConnectDb();
     
 
-    $sql = "UPDATE bier
+    $sql = "UPDATE brouwer
     SET
         naam = '$row[naam]',
-        soort = '$row[soort]',
-        stijl = '$row[stijl]',
-        alcohol = '$row[alcohol]',
-        brouwcode = '$row[brouwcode]'
-        WHERE biercode = $row[biercode]";
+        land = '$row[land]',
+        WHERE brouwcode = $row[brouwcode]";
 
         // echo $sql;
         // exit;
@@ -212,9 +210,9 @@ catch(PDOException $e) {
 
 
 
-function DeleteBier($biercode){
+function DeleteBrouwer($brouwcode){
     echo "Delete row<br>";
-    // var_dump($biercode);
+    // var_dump($brouwcode);
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -222,7 +220,7 @@ function DeleteBier($biercode){
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       
         // sql to delete a record
-        $sql = "DELETE FROM bieren WHERE biercode = $biercode;";
+        $sql = "DELETE FROM bieren WHERE brouwcode = $brouwcode;";
       echo $sql;
       exit;
       
