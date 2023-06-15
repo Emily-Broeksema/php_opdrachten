@@ -36,6 +36,14 @@
     $query->execute();
     $result = $query->fetchAll();
 
+    if($table == "bier"){
+        "SELECT bier.naam AS Biernaam, bier.soort, bier.alcohol, bier.stijl, bier.biercode,brouwer.naam AS Brouwernaam 
+        FROM bier, brouwer 
+        WHERE bier.biercode = brouwer.brouwcode"
+    } else {
+        $sql = "SELECT * FROM $table";
+    }
+
     return $result;
  }
 
@@ -48,7 +56,9 @@
     // $result = $conn->query("SELECT * FROM $table")->fetchAll();
 
     // Select data uit de opgegeven table methode prepare
-    $query = $conn->prepare("SELECT * FROM bier WHERE biercode = $biercode");
+    $query = $conn->prepare("SELECT bier.naam AS Biernaam, bier.soort, bier.alcohol, bier.stijl, bier.biercode,brouwer.naam AS Brouwernaam 
+    FROM bier, brouwer 
+    WHERE bier.biercode = brouwer.brouwcode");
     $query->execute();
     $result = $query->fetch();
 
