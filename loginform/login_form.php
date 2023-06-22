@@ -17,7 +17,7 @@
   <button name="login-btn">Login</button>
 </form>
 
-<a href="register_form.php">Registration</a>
+<a href="registration.php">Registration</a>
 
 <br>
 

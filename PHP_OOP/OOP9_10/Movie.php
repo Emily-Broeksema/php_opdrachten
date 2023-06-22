@@ -15,7 +15,7 @@ class Movie
      */
 
 
-    public function __construct($name, $genre,$seen)
+    public function __construct(string $name, string $genre, int $seen)
     {
         $this->name = $name;
         $this->genre = $genre;
